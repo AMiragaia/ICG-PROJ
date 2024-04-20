@@ -62,6 +62,22 @@ function addObjects() {
     addBuilding(0, 30, 15, 15, 40, 'bricks.jpg');
     addBuilding(30, -40, 20, 20, 50, 'bricks.jpg');
     addStreet(0, -30, 10, 100, 'road.jpg');
+    // Example values for the road and sidewalk parameters
+    let roadX = 0; // X-coordinate of the road center
+    let roadZ = -30; // Z-coordinate of the road center
+    let roadWidth = 10; // The width of the road
+    let roadDepth = 100; // The depth of the road
+    let sidewalkWidth = 2; // The width of the sidewalk
+
+    // Adding the road
+    addStreet(roadX, roadZ, roadWidth, roadDepth, 'road.jpg');
+    
+    // Adding sidewalks on both sides of the road
+    // Adjust the x-coordinate for the left sidewalk
+    addSidewalk(roadX - roadWidth / 2 - sidewalkWidth / 2, roadZ, sidewalkWidth, roadDepth, 'passeio.jpg');
+    // Adjust the x-coordinate for the right sidewalk
+    addSidewalk(roadX + roadWidth / 2 + sidewalkWidth / 2, roadZ, sidewalkWidth, roadDepth, 'passeio.jpg');
+   
 }
 
 function addGround() {
@@ -71,6 +87,22 @@ function addGround() {
     ground.rotation.x = -Math.PI / 2;
     ground.receiveShadow = true;
     scene.add(ground);
+}
+function addSidewalk(x, z, width, depth, texturePath) {
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load(texturePath, function (tex) {
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(width / 2, depth / 2); // Adjust based on your texture's details and sidewalk size
+        tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    });
+
+    const sidewalkGeometry = new THREE.PlaneGeometry(width, depth);
+    const sidewalkMaterial = new THREE.MeshLambertMaterial({ map: texture });
+    const sidewalk = new THREE.Mesh(sidewalkGeometry, sidewalkMaterial);
+    sidewalk.rotation.x = -Math.PI / 2;
+    sidewalk.position.set(x, 0.1, z); // Adjust height as needed to be just above the street level
+    sidewalk.receiveShadow = true;
+    scene.add(sidewalk);
 }
 
 function addStreet(x, z, width, depth, texturePath) {
