@@ -58,12 +58,10 @@ function addLights() {
 
 function addObjects() {
     addGround();
-    addBuilding(-30, 0, 10, 10, 30, 0xaabbcc);
-    addBuilding(0, 30, 15, 15, 40, 0xccaabb);
-    addBuilding(30, -40, 20, 20, 50, 0xcccccc);
-    addStreet(0, 15, 100, 10);
-    addStreet(0, -15, 100, 10);
-    addStreet(0, -30, 10, 100);
+    addBuilding(-30, 0, 10, 10, 30, 'bricks.jpg');
+    addBuilding(0, 30, 15, 15, 40, 'bricks.jpg');
+    addBuilding(30, -40, 20, 20, 50, 'bricks.jpg');
+    addStreet(0, -30, 10, 100, 'road.jpg');
 }
 
 function addGround() {
@@ -75,19 +73,34 @@ function addGround() {
     scene.add(ground);
 }
 
-function addStreet(x, z, width, depth) {
+function addStreet(x, z, width, depth, texturePath) {
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load(texturePath, function (tex) {
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(width / 10, depth / 10); // Adjust 10 to your texture's aspect ratio
+        tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        tex.minFilter = THREE.LinearMipmapLinearFilter;
+    });
+
     const streetGeometry = new THREE.PlaneGeometry(width, depth);
-    const streetMaterial = new THREE.MeshLambertMaterial({ color: 0x555555 });
+    const streetMaterial = new THREE.MeshLambertMaterial({ map: texture });
     const street = new THREE.Mesh(streetGeometry, streetMaterial);
     street.rotation.x = -Math.PI / 2;
     street.position.set(x, 0.1, z);
+    street.receiveShadow = true;
     scene.add(street);
 }
 
-function addBuilding(x, z, width, depth, height, color) {
+function addBuilding(x, z, width, depth, height, texturePath) {
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load(texturePath, function (tex) {
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(width / 5, height / 5); // Adjust repetition based on building size
+    });
+    const material = new THREE.MeshStandardMaterial({ map: texture });
     const buildingGeometry = new THREE.BoxGeometry(width, height, depth);
-    const buildingMaterial = new THREE.MeshLambertMaterial({ color: color });
-    const building = new THREE.Mesh(buildingGeometry, buildingMaterial);
+    const building = new THREE.Mesh(buildingGeometry, material);
     building.position.set(x, height / 2, z);
     building.castShadow = true;
     scene.add(building);
