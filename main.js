@@ -11,6 +11,13 @@ function init() {
     addLights();
     addObjects();
 
+    // Add helpers
+    const axesHelper = new THREE.AxesHelper(50);  // The number controls the size of the axes
+    scene.add(axesHelper);
+
+    const gridHelper = new THREE.GridHelper(100, 10);  // First param is size, second is divisions
+    scene.add(gridHelper);
+
     controls = new PointerLockControls(camera, renderer.domElement);
     document.body.addEventListener('click', function () {
         controls.lock();
@@ -34,7 +41,7 @@ function init() {
 
 function setupCamera() {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.set(0, 1.6, 0); // Adjust if necessary to start the camera at street level
+    camera.position.set(0, 1.6, 5); // Adjust if necessary to start the camera at street level
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
 }
@@ -59,7 +66,6 @@ function addLights() {
 function addObjects() {
     addGround();
     addBuilding(-30, 0, 10, 10, 30, 'bricks.jpg');
-    addBuilding(0, 30, 15, 15, 40, 'bricks.jpg');
     addBuilding(30, -40, 20, 20, 50, 'bricks.jpg');
     addStreet(0, -30, 10, 100, 'road.jpg');
     // Example values for the road and sidewalk parameters
@@ -77,7 +83,27 @@ function addObjects() {
     addSidewalk(roadX - roadWidth / 2 - sidewalkWidth / 2, roadZ, sidewalkWidth, roadDepth, 'passeio.jpg');
     // Adjust the x-coordinate for the right sidewalk
     addSidewalk(roadX + roadWidth / 2 + sidewalkWidth / 2, roadZ, sidewalkWidth, roadDepth, 'passeio.jpg');
-   
+    createHouse(12,-5, -Math.PI/2);
+    createHouse(12,-20,-Math.PI/2);
+}
+function addWindow(building, width, height, offsetX, offsetY) {
+    const windowGeometry = new THREE.PlaneGeometry(width, height);
+    const windowMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff, 
+        transparent: true, 
+        opacity: 0.5
+    });
+    const window = new THREE.Mesh(windowGeometry, windowMaterial);
+    window.position.set(offsetX, offsetY, building.geometry.parameters.depth / 2 + 0.01);
+    building.add(window);
+}
+
+function addBalcony(building, width, depth, height, offsetX, offsetY) {
+    const balconyGeometry = new THREE.BoxGeometry(width, height, depth);
+    const balconyMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+    const balcony = new THREE.Mesh(balconyGeometry, balconyMaterial);
+    balcony.position.set(offsetX, offsetY, building.geometry.parameters.depth / 2 + depth / 2);
+    building.add(balcony);
 }
 
 function addGround() {
@@ -123,20 +149,84 @@ function addStreet(x, z, width, depth, texturePath) {
     scene.add(street);
 }
 
-function addBuilding(x, z, width, depth, height, texturePath) {
+function addBuilding(x, z, width, depth, height, texturePath, normalMapPath) {
     const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load(texturePath, function (tex) {
-        tex.wrapS = THREE.RepeatWrapping;
-        tex.wrapT = THREE.RepeatWrapping;
-        tex.repeat.set(width / 5, height / 5); // Adjust repetition based on building size
+    const texture = textureLoader.load(texturePath);
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(width / 10, height / 10); // Adjust based on the building's size
+
+    const normalMap = textureLoader.load(normalMapPath);
+    normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping;
+    normalMap.repeat.set(width / 10, height / 10); // Match the main texture
+
+    const material = new THREE.MeshStandardMaterial({ 
+        map: texture,
+        normalMap: normalMap 
     });
-    const material = new THREE.MeshStandardMaterial({ map: texture });
+
     const buildingGeometry = new THREE.BoxGeometry(width, height, depth);
     const building = new THREE.Mesh(buildingGeometry, material);
     building.position.set(x, height / 2, z);
     building.castShadow = true;
+    building.receiveShadow = true;
     scene.add(building);
 }
+function createHouse(x, z, rotationY = 0) {
+    const loader = new THREE.TextureLoader();
+    const houseGroup = new THREE.Group();
+
+    // Base of the house
+    const baseGeometry = new THREE.BoxGeometry(10, 5, 10);
+    const baseMaterial = new THREE.MeshStandardMaterial({
+        map: loader.load('paredes.jpg'),
+        normalMap: loader.load('paredes.jpg')  // Assuming a separate normal map
+    });
+    const base = new THREE.Mesh(baseGeometry, baseMaterial);
+    base.position.set(0, 2.5, 0); // Center the base within the group
+    houseGroup.add(base);
+
+    // Roof
+    const roofGeometry = new THREE.ConeGeometry(7, 4, 4); // Simple pyramid roof
+    const roofMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+    const roof = new THREE.Mesh(roofGeometry, roofMaterial);
+    roof.position.set(0, 7, 0); // Position relative to the group center
+    roof.rotation.y = Math.PI / 4; // Align the roof properly
+    houseGroup.add(roof);
+
+    // Windows
+    const windowGeometry = new THREE.PlaneGeometry(2, 1);
+    const windowMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.5
+    });
+
+    // Left window
+    const windowLeft = new THREE.Mesh(windowGeometry, windowMaterial);
+    windowLeft.position.set(-3, 3, 5.1); // Left window position
+    houseGroup.add(windowLeft);
+
+    // Right window
+    const windowRight = new THREE.Mesh(windowGeometry, windowMaterial);
+    windowRight.position.set(3, 3, 5.1); // Right window position
+    houseGroup.add(windowRight);
+
+    // Door
+    const doorGeometry = new THREE.BoxGeometry(1.5, 2.5, 0.1);
+    const doorMaterial = new THREE.MeshStandardMaterial({ color: 0x654321 });
+    const door = new THREE.Mesh(doorGeometry, doorMaterial);
+    door.position.set(0, 1.25, 5.1); // Centered door position
+    houseGroup.add(door);
+
+    // Set the position and rotation of the entire group
+    houseGroup.position.set(x, 0, z);
+    houseGroup.rotation.y = rotationY; // Apply the rotation as specified by the argument
+
+    scene.add(houseGroup);
+}
+
+
+
 
 function onKeyDown(event) {
     switch (event.code) {
