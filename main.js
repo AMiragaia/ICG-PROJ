@@ -85,6 +85,7 @@ function addObjects() {
     addSidewalk(roadX + roadWidth / 2 + sidewalkWidth / 2, roadZ, sidewalkWidth, roadDepth, 'passeio.jpg');
     createHouse(12,-5, -Math.PI/2);
     createHouse(12,-20,-Math.PI/2);
+    addTree(12, -12.5); 
 }
 function addWindow(building, width, height, offsetX, offsetY) {
     const windowGeometry = new THREE.PlaneGeometry(width, height);
@@ -226,6 +227,25 @@ function createHouse(x, z, rotationY = 0) {
 }
 
 
+function addTree(x, z) {
+    const loader = new THREE.TextureLoader();
+    const trunkGeometry = new THREE.CylinderGeometry(0.5, 0.5, 4, 32);
+    const trunkMaterial = new THREE.MeshStandardMaterial({
+        map: loader.load('tronco.jpg') // Assuming you have a bark texture
+    });
+    const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+    trunk.position.set(x, 2, z); // Position the trunk half its height above the ground
+    scene.add(trunk);
+
+    const leavesGeometry = new THREE.SphereGeometry(2.5, 32, 32);
+    const leavesMaterial = new THREE.MeshStandardMaterial({
+        color: 0x228B22, // Forest green
+        map: loader.load('folhas.jpg') // Assuming you have a leaf texture
+    });
+    const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+    leaves.position.set(x, 6, z); // Positioned above the trunk
+    scene.add(leaves);
+}
 
 
 function onKeyDown(event) {
