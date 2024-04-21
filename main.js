@@ -65,8 +65,6 @@ function addLights() {
 
 function addObjects() {
     addGround();
-    addBuilding(-30, 0, 10, 10, 30, 'bricks.jpg');
-    addBuilding(30, -40, 20, 20, 50, 'bricks.jpg');
     addStreet(0, -30, 10, 100, 'road.jpg');
     // Example values for the road and sidewalk parameters
     let roadX = 0; // X-coordinate of the road center
