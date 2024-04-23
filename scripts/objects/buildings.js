@@ -15,6 +15,7 @@ export function addBuilding(scene, x, z, width, depth, height, texturePath, norm
         map: texture,
         normalMap: normalMap 
     });
+    
 
     const buildingGeometry = new THREE.BoxGeometry(width, height, depth);
     const building = new THREE.Mesh(buildingGeometry, material);
@@ -23,7 +24,59 @@ export function addBuilding(scene, x, z, width, depth, height, texturePath, norm
     building.receiveShadow = true;
     scene.add(building);
 }
+export function addStreetLight(scene, x, z, height = 5, rotationY = 0) {
+    const loader = new THREE.TextureLoader();
+    const streetLightGroup = new THREE.Group(); // Create a group for the street light
 
+    // Metal texture
+    const metalTexture = loader.load('assets/metal.jpg');
+
+    // Post
+    const postGeometry = new THREE.CylinderGeometry(0.05, 0.05, height - 1, 32);
+    const postMaterial = new THREE.MeshStandardMaterial({ map: metalTexture });
+    const post = new THREE.Mesh(postGeometry, postMaterial);
+    post.position.y = (height - 1) / 2;
+    streetLightGroup.add(post);
+
+    // Curved top
+    const curve = new THREE.CubicBezierCurve3(
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(0, 0.2, 0),
+        new THREE.Vector3(0.2, 0.4, 0),
+        new THREE.Vector3(0.5, 0.5, 0)
+    );
+    const curveGeometry = new THREE.TubeGeometry(curve, 20, 0.02, 8, false);
+    const curveMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+    const curveMesh = new THREE.Mesh(curveGeometry, curveMaterial);
+    curveMesh.position.y = height - 1;
+    streetLightGroup.add(curveMesh);
+
+    // Lampshade 
+    const coneGeometry = new THREE.ConeGeometry(0.2, 0.35, 32);
+    const coneMaterial = new THREE.MeshStandardMaterial({ color: 0x888888, transparent: false, opacity: 0.8 });
+    const cone = new THREE.Mesh(coneGeometry, coneMaterial);
+    cone.position.set(0.5, height - 0.6, 0);
+
+    streetLightGroup.add(cone);
+
+    // Light bulb
+    const bulbGeometry = new THREE.SphereGeometry(0.05, 16, 16);
+    const bulbMaterial = new THREE.MeshStandardMaterial({ color: 0xffff00, emissive: 0xffff00 });
+    const bulb = new THREE.Mesh(bulbGeometry, bulbMaterial);
+    bulb.position.set(0.5, height - 0.8, 0);
+    streetLightGroup.add(bulb);
+
+    // Point light
+    const light = new THREE.PointLight(0xffff00, 1, 5);
+    light.position.set(0.5, height - 0.8, 0);
+    streetLightGroup.add(light);
+
+    // Set the position and rotation of the entire group
+    streetLightGroup.position.set(x, 0, z);
+    streetLightGroup.rotation.y = rotationY;
+
+    scene.add(streetLightGroup);
+}
 export function createHouse(scene, x, z, rotationY = 0) {
     const loader = new THREE.TextureLoader();
     const houseGroup = new THREE.Group();

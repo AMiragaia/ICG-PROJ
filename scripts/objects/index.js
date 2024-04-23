@@ -1,6 +1,6 @@
 // objects/index.js
-import { createHouse } from './buildings.js';
-import { addStreet, addSidewalk, addTree , addGround  } from './streets.js';
+import { addBuilding, createHouse, addStreetLight } from './buildings.js';
+import { addStreet, addSidewalk, addTree , addGround } from './streets.js';
 
 
 export function addObjects(scene) {
@@ -22,7 +22,19 @@ export function addObjects(scene) {
     // Adding houses
     createHouse(scene, 12, -5, -Math.PI / 2);
     createHouse(scene, 12, -20, -Math.PI / 2);
+    createHouse(scene,12,10, -Math.PI / 2);
 
     // Adding a tree
     addTree(scene, 12, -12.5);
+    addTree(scene, 12, 2.5);
+
+    //Adding builduings across the street
+    addBuilding(scene, -12.5, -12, 10, 10, 20, './assets/paredes.jpg', './assets/paredes.jpg');
+    //Adding street lights between the houses
+    addStreetLight(scene, 9, -11, 5, Math.PI);
+    addStreetLight(scene, 9, 4, 5, Math.PI);
+    addStreetLight(scene, 9, 1, 5, Math.PI);
+    addStreetLight(scene, 9, -14, 5, Math.PI);
+    
+    
 }

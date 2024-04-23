@@ -59,10 +59,10 @@ function onKeyUp(event) {
 
 function render() {
     requestAnimationFrame(render);
-    if (moveForward) controls.moveForward(0.1);
-    if (moveBackward) controls.moveForward(-0.1);
-    if (moveLeft) controls.moveRight(-0.1);
-    if (moveRight) controls.moveRight(0.1);
+    if (moveForward) controls.moveForward(0.5);
+    if (moveBackward) controls.moveForward(-0.5);
+    if (moveLeft) controls.moveRight(-0.5);
+    if (moveRight) controls.moveRight(0.5);
     renderer.render(scene, camera);
 }
 
