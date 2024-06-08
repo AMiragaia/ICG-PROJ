@@ -24,7 +24,7 @@ export function addBuilding(scene, x, z, width, depth, height, texturePath, norm
     building.receiveShadow = true;
     scene.add(building);
 }
-export function addStreetLight(scene, x, z, height = 5, rotationY = 0) {
+export function addStreetLight(scene, x, z, height = 5, rotationY = 0, streetLights) {
     const loader = new THREE.TextureLoader();
     const streetLightGroup = new THREE.Group(); // Create a group for the street light
 
@@ -76,6 +76,8 @@ export function addStreetLight(scene, x, z, height = 5, rotationY = 0) {
     streetLightGroup.rotation.y = rotationY;
 
     scene.add(streetLightGroup);
+
+    streetLights.push(light); // Adiciona a luz da rua à lista
 }
 export function createHouse(scene, x, z, rotationY = 0) {
     const loader = new THREE.TextureLoader();
@@ -117,6 +119,185 @@ export function createHouse(scene, x, z, rotationY = 0) {
     const door = new THREE.Mesh(doorGeometry, doorMaterial);
     door.position.set(0, 1.25, 5.1);
     houseGroup.add(door);
+
+    const handle = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), new THREE.MeshStandardMaterial({ color: 0x808080 }));
+    handle.position.set(0.5, 1.25, 5.15);
+    houseGroup.add(handle);
+    houseGroup.position.set(x, 0, z);
+    houseGroup.rotation.y = rotationY;
+    scene.add(houseGroup);
+}
+export function createHouseBricks(scene, x, z, rotationY = 0) {
+    const loader = new THREE.TextureLoader();
+    const houseGroup = new THREE.Group();
+    
+    // Base geometry adjusted to be rectangular
+    const baseGeometry = new THREE.BoxGeometry(15, 5, 10);
+    const baseMaterial = new THREE.MeshStandardMaterial({
+        map: loader.load('assets/bricks.jpg'), // Ensure path is correct
+        normalMap: loader.load('assets/bricks.jpg') // Assuming the normal map is the same
+    });
+    const base = new THREE.Mesh(baseGeometry, baseMaterial);
+    base.position.set(0, 2.5, 0);
+    houseGroup.add(base);
+
+    // Adjusted window geometry and materials
+    const windowGeometry = new THREE.PlaneGeometry(2, 1);
+    const windowMaterial = new THREE.MeshStandardMaterial({
+        color: 0x000000, // Black windows
+        transparent: true,
+        opacity: 0.8,
+        side: THREE.DoubleSide
+    });
+
+    const windowBorderMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // White border
+
+    const createWindowWithBorder = (x, y, z) => {
+        const windowGroup = new THREE.Group();
+
+        const windowFrameGeometry = new THREE.PlaneGeometry(2.2, 1.2);
+        const windowFrame = new THREE.Mesh(windowFrameGeometry, windowBorderMaterial);
+        windowFrame.position.set(0, 0, -0.01); // Slight offset to prevent z-fighting
+
+        const window = new THREE.Mesh(windowGeometry, windowMaterial);
+
+        windowGroup.add(windowFrame);
+        windowGroup.add(window);
+
+        windowGroup.position.set(x, y, z);
+
+        return windowGroup;
+    };
+
+    const windowLeft = createWindowWithBorder(-5, 3, 5.1);
+    houseGroup.add(windowLeft);
+
+    const windowRight = createWindowWithBorder(5, 3, 5.1);
+    houseGroup.add(windowRight);
+
+    // Adjusted door position to fit the new base dimensions
+    const doorGeometry = new THREE.BoxGeometry(1.5, 2.5, 0.1);
+    const doorMaterial = new THREE.MeshStandardMaterial({ color: 0x654321 });
+    const door = new THREE.Mesh(doorGeometry, doorMaterial);
+    door.position.set(0, 1.25, 5.1);
+    houseGroup.add(door);
+
+    const handle = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), new THREE.MeshStandardMaterial({ color: 0x808080 }));
+    handle.position.set(0.75, 1.25, 5.15);
+    houseGroup.add(handle);
+
+    houseGroup.position.set(x, 0, z);
+    houseGroup.rotation.y = rotationY;
+    scene.add(houseGroup);
+}
+
+
+
+export function createCottageStyleHouse(scene, x, z, rotationY = 0) {
+    const loader = new THREE.TextureLoader();
+    const houseGroup = new THREE.Group();
+
+    // Base geometry
+    const baseGeometry = new THREE.BoxGeometry(8, 6, 8);
+    const baseMaterial = new THREE.MeshStandardMaterial({
+        map: loader.load('assets/metal.jpg'), // Ensure path is correct
+        normalMap: loader.load('assets/metal.jpg') // Assuming the normal map is different
+    });
+    const base = new THREE.Mesh(baseGeometry, baseMaterial);
+    base.position.set(0, 3, 0);
+    houseGroup.add(base);
+
+    // Roof geometry
+    const roofGeometry = new THREE.CylinderGeometry(0, 8, 6, 4);
+    const roofMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+    const roof = new THREE.Mesh(roofGeometry, roofMaterial);
+    roof.position.set(0, 9, 0);
+    roof.rotation.y = Math.PI / 4;
+    houseGroup.add(roof);
+
+    // Chimney geometry
+    const chimneyGeometry = new THREE.BoxGeometry(1, 5, 1);
+    const chimneyMaterial = new THREE.MeshStandardMaterial({ color: 0x654321 });
+    const chimney = new THREE.Mesh(chimneyGeometry, chimneyMaterial);
+    chimney.position.set(2, 10, -1);
+    houseGroup.add(chimney);
+
+    // Windows and door
+    const windowGeometry = new THREE.PlaneGeometry(2, 2);
+    const windowMaterial = new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        transparent: true,
+        opacity: 0.5
+    });
+
+    const windowLeft = new THREE.Mesh(windowGeometry, windowMaterial);
+    windowLeft.position.set(-3, 3, 4.1);
+    houseGroup.add(windowLeft);
+
+    const windowRight = new THREE.Mesh(windowGeometry, windowMaterial);
+    windowRight.position.set(3, 3, 4.1);
+    houseGroup.add(windowRight);
+
+    const doorGeometry = new THREE.BoxGeometry(2, 3, 0.1);
+    const doorMaterial = new THREE.MeshStandardMaterial({ color: 0x654321 });
+    const door = new THREE.Mesh(doorGeometry, doorMaterial);
+    door.position.set(0, 1.5, 4.1);
+    houseGroup.add(door);
+    const handle = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), new THREE.MeshStandardMaterial({ color: 0x808080 }));
+    handle.position.set(0.75, 1.25, 4.15);
+    houseGroup.add(handle);
+    houseGroup.position.set(x, 0, z);
+    houseGroup.rotation.y = rotationY;
+    scene.add(houseGroup);
+}
+export function createAFrameHouse(scene, x, z, rotationY = 0) {
+    const loader = new THREE.TextureLoader();
+    const houseGroup = new THREE.Group();
+
+    // Base geometry
+    const baseGeometry = new THREE.BoxGeometry(12, 6, 12);
+    const baseMaterial = new THREE.MeshStandardMaterial({
+        map: loader.load('assets/metal.jpg'), // Ensure path is correct
+        normalMap: loader.load('assets/metal.jpg') // Assuming the normal map is different
+    });
+    const base = new THREE.Mesh(baseGeometry, baseMaterial);
+    base.position.set(0, 3, 0);
+    houseGroup.add(base);
+
+    // A-Frame roof geometry
+    const roofGeometry = new THREE.ConeGeometry(10, 12, 4);
+    const roofMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+    const roof = new THREE.Mesh(roofGeometry, roofMaterial);
+    roof.position.set(0, 12, 0);
+    roof.rotation.y = Math.PI / 4; // Ensure the roof aligns properly with the base
+    houseGroup.add(roof);
+
+    // Windows and door
+    const windowGeometry = new THREE.PlaneGeometry(2, 2);
+    const windowMaterial = new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        transparent: true,
+        opacity: 0.5
+    });
+
+    const windowLeft = new THREE.Mesh(windowGeometry, windowMaterial);
+    windowLeft.position.set(-3, 3, 6.1);
+    houseGroup.add(windowLeft);
+
+    const windowRight = new THREE.Mesh(windowGeometry, windowMaterial);
+    windowRight.position.set(3, 3, 6.1);
+    houseGroup.add(windowRight);
+
+    const doorGeometry = new THREE.BoxGeometry(2, 3, 0.1);
+    const doorMaterial = new THREE.MeshStandardMaterial({ color: 0x654321 });
+    const door = new THREE.Mesh(doorGeometry, doorMaterial);
+    door.position.set(0, 1.5, 6.1);
+    houseGroup.add(door);
+    
+
+    const handle = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), new THREE.MeshStandardMaterial({ color: 0x808080 }));
+    handle.position.set(0.75, 1.25, 6.15);
+    houseGroup.add(handle);
 
     houseGroup.position.set(x, 0, z);
     houseGroup.rotation.y = rotationY;
