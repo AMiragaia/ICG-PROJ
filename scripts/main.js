@@ -53,21 +53,6 @@ function setupRenderer() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     document.getElementById('WebGL-output').appendChild(renderer.domElement);
-
-    // Tente carregar a textura do céu
-    const loader = new THREE.TextureLoader();
-    loader.load(
-        'assets/sky.jpg',
-        function (texture) {
-            scene.background = texture;
-        },
-        undefined,
-        function (err) {
-            console.error('Erro ao carregar a textura do céu', err);
-            // Fallback para uma cor sólida se a textura falhar
-            renderer.setClearColor(new THREE.Color(0x87CEEB));
-        }
-    );
 }
 
 function toggleDayNightMode() {
