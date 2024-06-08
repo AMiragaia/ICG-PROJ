@@ -17,7 +17,7 @@ function init() {
     setupRenderer();
 
     addLights(scene);
-    addObjects(scene, streetLights);
+    cars = addObjects(scene, streetLights); // Atribua o retorno da função `addObjects` à variável `cars`
     controls = createControls(camera, renderer.domElement);
 
     document.addEventListener('keydown', onKeyDown);

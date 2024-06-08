@@ -96,12 +96,12 @@ export function createTrashCan(scene, x, z, rotationY = 0) {
 }
 
 function createWheels() {
-    const geometry = new THREE.BoxGeometry(0.7, 0.7, 0.3); // Dimensões ajustadas para as rodas
+    const geometry = new THREE.CylinderGeometry(0.3, 0.3, 0.2, 32);
     const material = new THREE.MeshLambertMaterial({ color: 0x333333 });
     const wheel = new THREE.Mesh(geometry, material);
+    wheel.rotation.z = Math.PI / 2; // Rotaciona o cilindro para que fique na orientação correta
     return wheel;
-  }
-  
+}
   export function createCar(scene, x, z, rotationY = 0) {
     const car = new THREE.Group();
     
