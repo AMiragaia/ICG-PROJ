@@ -1,0 +1,361 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 338,
+      "max": [
+        190.76763916015625,
+        247.17050170898438,
+        124.62532806396484
+      ],
+      "min": [
+        -190.76763916015625,
+        0.0,
+        -79.7197494506836
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 4056,
+      "componentType": 5126,
+      "count": 338,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 338,
+      "max": [
+        0.030000001192092896,
+        0.8899999856948853
+      ],
+      "min": [
+        0.030000001192092896,
+        0.7099999785423279
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 462,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 8112,
+      "componentType": 5126,
+      "count": 28,
+      "max": [
+        172.49960327148438,
+        219.1903533935547,
+        58.55534744262695
+      ],
+      "min": [
+        -172.49960327148438,
+        5.9830193519592285,
+        -63.17486572265625
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 8448,
+      "componentType": 5126,
+      "count": 28,
+      "max": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 2704,
+      "componentType": 5126,
+      "count": 28,
+      "max": [
+        0.27000001072883606,
+        0.43000006675720215
+      ],
+      "min": [
+        0.27000001072883606,
+        0.43000006675720215
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 1848,
+      "componentType": 5125,
+      "count": 36,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Islide (https://sketchfab.com/Islide)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/bus-stop-low-poly-6c129121b1474f24816fa5244394f4a0",
+      "title": "Bus Stop [Low Poly]"
+    },
+    "generator": "Sketchfab-12.66.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 1992,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2928,
+      "byteOffset": 1992,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 8784,
+      "byteOffset": 4920,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 13704,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsUsed": [
+    "KHR_materials_transmission"
+  ],
+  "images": [
+    {
+      "uri": "textures/RGB_texture_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "RGB_texture",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.6
+      }
+    },
+    {
+      "alphaMode": "BLEND",
+      "extensions": {
+        "KHR_materials_transmission": {
+          "transmissionFactor": 0.6711739594081663
+        }
+      },
+      "name": "Glass",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.42399999999999993,
+          0.6997330000000002,
+          0.7999999999999999,
+          0.32882604059183373
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.0
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Bus_Stop_01_RGB_texture_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Bus_Stop_01_glass_Glass_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        0.009584326297044754,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.1281479460998907e-18,
+        -0.009584326297044754,
+        0.0,
+        0.0,
+        0.009584326297044754,
+        2.1281479460998907e-18,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "67979701393b4fa0a4ea6fc80cb4aac4.fbx"
+    },
+    {
+      "children": [
+        3,
+        5
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        -1.0,
+        -1.2246467991473535e-16,
+        1.224646799147353e-16,
+        0.0,
+        -1.2246467991473535e-16,
+        1.0,
+        -1.2246467991473535e-16,
+        0.0,
+        -1.224646799147353e-16,
+        -1.2246467991473535e-16,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Bus_Stop_01"
+    },
+    {
+      "mesh": 0,
+      "name": "Bus_Stop_01_RGB_texture_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        -1.0,
+        -1.2246467991473535e-16,
+        1.224646799147353e-16,
+        0.0,
+        -1.2246467991473535e-16,
+        1.0,
+        -1.2246467991473535e-16,
+        0.0,
+        -1.224646799147353e-16,
+        -1.2246467991473535e-16,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Bus_Stop_01_glass"
+    },
+    {
+      "mesh": 1,
+      "name": "Bus_Stop_01_glass_Glass_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ]
+}
