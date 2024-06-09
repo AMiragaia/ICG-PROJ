@@ -21,7 +21,7 @@ function createPlane(l,w){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
   
   // PERSON
-  function createCar(posx, posy, posz) {
+  function createPerson(posx, posy, posz) {
     const person = new THREE.Group();
     
     // Head

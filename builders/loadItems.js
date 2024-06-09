@@ -475,44 +475,6 @@ function createShop2() {
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // uni
-function createUni() {
-    const group = new THREE.Group();
-
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
-
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/uni/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(35,35,35)
-            gltf.scene.rotation.y = Math.PI / 2
-            gltf.scene.position.set(-950, 0, 1780)
-
-            gltf.scene.traverse(function (child) {
-            
-                if (child instanceof THREE.Mesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Uni ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-            function ( error ) {
-        console.log( ' An error happened' +  error );
-        }
-    );
-
-    return group;
-}
 
 // HELPER
 function getRandomNumberBetween(min,max){
