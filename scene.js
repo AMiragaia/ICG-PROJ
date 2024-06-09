@@ -180,17 +180,12 @@ function load3DObjects(sceneGraph) {
     // ************************** //
     // Create lake and decoration
     // ************************** //
-    sceneGraph.add(createLake());
-    sceneGraph.add(createBridge());
-    const rst = createOtherStatue();
-    rst.rotation.y = - Math.PI / 3
-    rst.position.set(-850, 0, -280)
-    sceneGraph.add(rst);
+   
+    
+    
+    
 
-    const lst = createOtherStatue();
-    lst.rotation.y = Math.PI / 3
-    lst.position.set(-850, 0, -720)
-    sceneGraph.add(lst);  
+    
 
     // ************************** //
     // Create sun and moon
@@ -217,10 +212,7 @@ function load3DObjects(sceneGraph) {
     sceneElements.sceneGraph.add(moonPivot)
     moonPivot.name="moonPivot"
 
-    const airplane = createAirPlane();
-    airplane.rotation.y = Math.PI / 2
-    airplane.name = 'airplane'
-    sceneGraph.add(airplane)
+   
 }
 
 ////////////////////////////////
@@ -249,10 +241,6 @@ let clicks = 0;
     }
   });
 
-// stars
-const geometry = new THREE.BufferGeometry();
-geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( star_vertices, 3 ) );
-let stars = new THREE.Points( geometry, new THREE.PointsMaterial( { color: 0xffffff } ) );
 
 
 ////////////////////////////////
@@ -260,17 +248,13 @@ let stars = new THREE.Points( geometry, new THREE.PointsMaterial( { color: 0xfff
 
 function computeFrame() {
 
-    // get statue light
-    const statuelight = sceneElements.sceneGraph.getObjectByName("statuelight");
+    
 
-    const helice = sceneElements.sceneGraph.getObjectByName("helice");
-    helice.rotation.x += 120
+    
 
-    const airplane = sceneElements.sceneGraph.getObjectByName("airplane");
-    airplane.rotation.y += 0.015;
+    
 
-    const duck = sceneElements.sceneGraph.getObjectByName("duck");
-    duck.rotation.y-=0.01;
+    
 
     const sun = sceneElements.sceneGraph.getObjectByName("sun");
     const worldPosition = new THREE.Vector3();
@@ -280,9 +264,7 @@ function computeFrame() {
     const otherbuildinglight1 = sceneElements.sceneGraph.getObjectByName("otherbuildinglight1");
     const otherbuildinglight2 = sceneElements.sceneGraph.getObjectByName("otherbuildinglight2");
 
-    // turn off car lights when day
-    const bulblight1 = sceneElements.sceneGraph.getObjectByName("light1");
-    const bulblight2 = sceneElements.sceneGraph.getObjectByName("light2");
+    
 
     // get sunlight
     const sunlight = sceneElements.sceneGraph.getObjectByName("sunlight");
@@ -340,7 +322,7 @@ function computeFrame() {
     // if its day
     if (sunpos.y > 0) {
 
-        sceneElements.sceneGraph.remove(stars)
+        
 
         createjs.Tween.get(sceneElements.sceneGraph.background).to(new THREE.Color(0x91c3ed), 1200)
         createjs.Tween.get(sceneElements.sceneGraph.fog).to(new THREE.Fog(0xffe680, 2500, 12000))
@@ -349,18 +331,15 @@ function computeFrame() {
         for (var i in building_lights){ building_lights[i].intensity = 0; }
         for (var i in uni_lights){ uni_lights[i].intensity = 0; }
 
-        bulblight1.intensity = 0;
-        bulblight2.intensity = 0;
+        
         otherbuildinglight1.intensity = 0;
         otherbuildinglight2.intensity = 0;
         sunlight.intensity = 1;
         fl1.intensity = 0;
         fl2.intensity = 0;
-        statuelight.intensity = 0;
+        
 
     } else {    // night
-
-        sceneElements.sceneGraph.add(stars);
 
         createjs.Tween.get(sceneElements.sceneGraph.background).to(new THREE.Color(0x090f14), 1200)
         createjs.Tween.get(sceneElements.sceneGraph.fog).to(new THREE.Fog(0x1e2733, 1000, 10000))
@@ -370,13 +349,12 @@ function computeFrame() {
         for (var i in uni_lights){ uni_lights[i].intensity = 1.8; }
         
         sunlight.intensity = 0;
-        bulblight1.intensity = 2.2;
-        bulblight2.intensity = 2.2;
+        
         otherbuildinglight1.intensity = 2;
         otherbuildinglight2.intensity = 2;
         fl1.intensity = 1.6;
         fl2.intensity = 1.6;
-        statuelight.intensity = 5;
+        
     }
 
     // rotate sun and moon light

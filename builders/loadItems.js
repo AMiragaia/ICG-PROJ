@@ -285,180 +285,23 @@ function createBus() {
     return group;
 }
 
-/*  NEW FOR PROJECT 2 */
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// STATUE 
-function createStatue() {
-    const group = new THREE.Group();
 
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
-
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/statue/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(40,40,40)
-            gltf.scene.rotation.y = - Math.PI / 2
-            gltf.scene.position.set(-100, -70, -100)
-
-            gltf.scene.traverse(function (child) {
-
-                if (child instanceof THREE.Mesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Statue ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-            function ( error ) {
-        console.log( ' An error happened' +  error );
-        }
-    );
-    return group;
-}
-
-/*  NEW FOR PROJECT 2 */
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Bridge 
-function createBridge() {
-    const group = new THREE.Group();
-
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
-
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/bridge/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(1.2,1.2,1.2)
-            //gltf.scene.rotation.y = - Math.PI / 2
-            gltf.scene.position.set(-1200, 140, -500)
-
-            gltf.scene.traverse(function (child) {
-
-                if (child instanceof THREE.Mesh) {
-                    child.material = new THREE.MeshPhongMaterial({color: 0xff9e54})
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Bridge ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-            function ( error ) {
-        console.log( ' An error happened' +  error );
-        }
-    );
-    const floor = new THREE.Mesh(new THREE.BoxBufferGeometry(200, 400, 15), new THREE.MeshPhongMaterial({color: 0xff9e54}))
-    floor.rotateOnAxis(new THREE.Vector3(1, 0, 0), Math.PI / 2);
-    floor.position.set(-1200, 0, -500)
-    group.add(floor)
-    return group;
-}
 
 
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// Another Statue 
-function createOtherStatue() {
-    const group = new THREE.Group();
 
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
 
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/otherstatue/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(0.15,0.15,0.15)
 
-            gltf.scene.traverse(function (child) {
+/*  NEW FOR PROJECT 2 */
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
-                if (child instanceof THREE.Mesh) {
-                    child.material = new THREE.MeshPhongMaterial({color: 0xffffff})
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
 
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Another statue ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-            function ( error ) {
-        console.log( ' An error happened' +  error );
-        }
-    );
-  
-    return group;
-}
 
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PLANE 
-function createAirPlane() {
-    const group = new THREE.Group();
 
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
-
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/plane/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(0.5,0.5,0.5)
-            gltf.scene.rotation.y = - Math.PI / 2
-            gltf.scene.position.set(-100, 1800, -1500)
-
-            gltf.scene.traverse(function (child) {
-
-                if (child instanceof THREE.Mesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Airplane ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-            function ( error ) {
-        console.log( ' An error happened' +  error );
-        }
-    );
-
-    const helice = new THREE.Mesh(new THREE.BoxBufferGeometry(2, 115, 8), new THREE.MeshPhongMaterial({color: 0xffffff}))
-    helice.position.set(-300, 1775, -1500)
-    helice.name = 'helice'
-    group.add(helice)
-    return group;
-}
 
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
