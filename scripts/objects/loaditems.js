@@ -202,15 +202,49 @@ export function createRedCar(posx, posz) {
     );
     return group;
 }
-
-/*  NEW FOR PROJECT 2 */
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// BUS STOP
-function createBusStop() {
+export function createHospital() {
     const group = new THREE.Group();
 
     // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
+
+    // Load a glTF resource
+    loader.load(
+        // resource URL
+        'models/hospital/scene.gltf',  // Adjust the path to your actual location
+        // called when the resource is loaded
+        function (gltf) {
+            gltf.scene.scale.set(4, 4, 4);  // Adjust scale as necessary
+            gltf.scene.position.set(20, 0, -45);  // Hardcoded position values
+            gltf.scene.rotation.y = -Math.PI/2
+            gltf.scene.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+
+            group.add(gltf.scene);
+        },
+        // called while loading is progressing
+        function (xhr) {
+            console.log('Hospital ' + (xhr.loaded / xhr.total * 100) + '% loaded');
+        },
+        // called when loading has errors
+        function (error) {
+            console.log('An error happened: ' + error);
+        }
+    );
+    return group;
+}
+/*  NEW FOR PROJECT 2 */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// BUS STOP
+export function createBusStop() {
+    const group = new THREE.Group();
+
+    // Instantiate a loader
+    const loader = new GLTFLoader();
 
     // Load a glTF resource
     loader.load(
@@ -218,9 +252,9 @@ function createBusStop() {
         'models/busstop/scene.gltf',
         // called when the resource is loaded
         function ( gltf ) {
-            gltf.scene.scale.set(50,50,50)
-            gltf.scene.rotation.y = Math.PI/2
-            gltf.scene.position.set(320, 0, 900)
+            gltf.scene.scale.set(1.5,1.5,1.5)
+            gltf.scene.rotation.y = -Math.PI/2
+            gltf.scene.position.set(-10, 0, 30)
 
             gltf.scene.traverse(function (child) {
 

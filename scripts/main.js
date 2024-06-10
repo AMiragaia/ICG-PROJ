@@ -8,6 +8,7 @@ let streetLights = [];
 let dayMode = true;
 
 let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+
 function createCamera() {
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.set(0, 1.6, 5); // Adjust if necessary to start the camera at street level
@@ -34,6 +35,7 @@ export function createControls(camera, domElement) {
 
     return controls;
 }
+
 export function addLights(scene) {
     const ambientLight = new THREE.AmbientLight(0x404040);
     scene.add(ambientLight);
@@ -142,6 +144,13 @@ function render() {
         cars.car2.position.z += speed;
         if (cars.car2.position.z > 75) {
             cars.car2.position.z = -75;
+        }
+    }
+
+    if (cars.redcar) {
+        cars.redcar.position.z += speed;
+        if (cars.redcar.position.z > 75) {
+            cars.redcar.position.z = -75;
         }
     }
 

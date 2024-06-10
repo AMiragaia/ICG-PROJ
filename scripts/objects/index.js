@@ -1,6 +1,6 @@
 import { addBuilding, createHouse, addStreetLight, createHouseBricks, createCottageStyleHouse, createAFrameHouse } from './buildings.js';
 import { addStreet, addSidewalk, addTree, addGround, createTrashCan, createCar } from './streets.js';
-import {createRedCar} from './loaditems.js';
+import {createRedCar,createBusStop,createHospital} from './loaditems.js';
 
 
 
@@ -52,9 +52,16 @@ export function addObjects(scene, streetLights) {
     redcar.name = "redcar"
     scene.add(redcar);
 
+    const busstop = createBusStop(9, 0)
+    busstop.rotation.y = Math.PI
+    scene.add(busstop);
+
+    const hospital = createHospital()
+    scene.add(hospital);
+
     // Adding cars
     const car1 = createCar(scene, -2, 75); // Carro na faixa da esquerda, início no topo
     const car2 = createCar(scene, 2, -75);  // Carro na faixa da direita, início na parte inferior
 
-    return { car1, car2 };
+    return { car1, car2, redcar };
 }
