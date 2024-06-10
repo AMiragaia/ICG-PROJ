@@ -60,8 +60,6 @@ export function addObjects(scene, streetLights) {
     scene.add(hospital);
 
     // Adding cars
-    const car1 = createCar(scene, -2, 75); // Carro na faixa da esquerda, início no topo
-    const car2 = createCar(scene, 2, -75);  // Carro na faixa da direita, início na parte inferior
-
-    return { car1, car2, redcar };
+    
+    return { redcar };
 }

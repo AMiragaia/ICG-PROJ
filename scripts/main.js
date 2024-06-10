@@ -133,19 +133,6 @@ function render() {
 
     // Movimento dos carros
     const speed = 0.1;
-    if (cars.car1) {
-        cars.car1.position.z -= speed;
-        if (cars.car1.position.z < -75) {
-            cars.car1.position.z = 75;
-        }
-    }
-
-    if (cars.car2) {
-        cars.car2.position.z += speed;
-        if (cars.car2.position.z > 75) {
-            cars.car2.position.z = -75;
-        }
-    }
 
     if (cars.redcar) {
         cars.redcar.position.z += speed;
