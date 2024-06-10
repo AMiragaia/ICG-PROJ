@@ -1,53 +1,29 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<title> Big Town </title>
-	
-	<link rel="stylesheet" href="css/styles.css">
-	
-	<script src="https://threejs.org/build/three.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
-	<script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
-	
-	<script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/OrbitControls.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three.interaction@0.2.3/build/three.interaction.js"></script>
-	<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-	<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-	<script src="https://unpkg.com/three@0.122.0/examples/js/libs/inflate.min.js"></script>
-	<script src="https://unpkg.com/three@0.122.0/examples/js/loaders/FBXLoader.js"></script>
-	
-	<script type="text/javascript" src="builders/createItems.js" defer></script>
-	<script type="text/javascript" src="builders/loadItems.js" defer></script>
-
-	<script type="text/javascript" src="helper.js" defer></script>
-	<script type="text/javascript" src="scene.js" defer></script>
-
-	<script> function changePOV() {}; </script>
-	
+    <title>Interactive 3D Neighborhood</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://threejs.org/build/three.module.js",
+                "OrbitControls": "https://threejs.org/examples/jsm/controls/OrbitControls.js",
+                "PointerLockControls": "https://threejs.org/examples/jsm/controls/PointerLockControls.js"
+            }
+        }
+    </script>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
 </head>
-
 <body>
-	<div class="container">
-		<div id="info" class="boxed">
-			<div class="column">
-				<p>Press <kbd>W</kbd> to go forward </p>
-				<p>Press <kbd>S</kbd> to go backwards</p>
-			</div>
-			<div class="column">
-				<p>Press <kbd>A</kbd> to go left</p>
-				<p>Press <kbd>D</kbd> to go right</p>
-			</div>
-			<p>Press <kbd>Shift</kbd> while moving to activate boost</p>
-			<p>Use the <kbd>Mouse/Wheel</kbd> to rotate/zoom world</p>
-			
-			<button id="firstperson">change pov</button>
-		</div>
-		<div id="big-town"> </div>
-	</div>
+    <div id="blocker" style="position: absolute; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); display: none;">
+        <div id="instructions" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+            Click to play
+        </div>
+    </div>
+    <div id="WebGL-output"></div> <!-- Renderer output will be here -->
+    <button id="modeButton" style="position: absolute; top: 10px; right: 10px; z-index: 100;">Night Mode</button>
+    <script type="module" src="scripts/main.js"></script>
 </body>
-
 </html>
