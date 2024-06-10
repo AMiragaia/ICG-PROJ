@@ -211,116 +211,12 @@ function createBuilding(posx, posz) {
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // ANOTHER BUILDING WINDOWS
-function createAnotherBuildingWindows(){
-  const windows = new THREE.Group();  
 
-  for (var x = -60; x < 80; x +=60){
-    for (var y = 200; y > -220; y-=150){
-      const window = new THREE.Mesh( new THREE.BoxBufferGeometry( 280, 95, 100 ), new THREE.MeshPhongMaterial({ color: 0x82fff0, side: THREE.DoubleSide }) );
-      
-      const cover = new THREE.Mesh( new THREE.BoxBufferGeometry(320, 120, 100), new THREE.MeshPhongMaterial({ color: 0x808080 }) );
-      cover.castShadow = true; cover.receiveShadow = true;
-      
-      cover.position.set(x, y, 180);
-      window.position.set(x, y, 186)
-      windows.add(window, cover);
-    }
-  }
-
-  return windows;
-}
 
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // ANOTHER BUILDING
-function createAnotherBuilding(posx, posz){
-  const building = new THREE.Group();  
-  
-  const texture = new THREE.TextureLoader().load( "resources/wall.jpg" )
 
-  const main = new THREE.Mesh( new THREE.BoxBufferGeometry(500, 600, 400), new THREE.MeshPhongMaterial({ color: 0xc7c7c7,  map: texture }) );
-  main.castShadow = true; main.receiveShadow = true;
-
-
-  const main2 = new THREE.Mesh( new THREE.BoxBufferGeometry(400, 400, 300), new THREE.MeshPhongMaterial({ color: 0xdedede, map: texture }) );
-  main2.position.y = 400
-  main2.castShadow = true; main.receiveShadow = true;
-
-  const main3 = new THREE.Mesh( new THREE.BoxBufferGeometry(250, 100, 200), new THREE.MeshPhongMaterial({ color: 0xededed,  map: texture }) );
-  main3.position.y = 650
-  main3.castShadow = true; main.receiveShadow = true;
-
-  
-  const door = new THREE.Mesh( new THREE.PlaneGeometry( 260, 120 ), new THREE.MeshPhongMaterial({ color: 0x303030 }) );
-  door.position.set(0, -240, 205);
-  door.castShadow = true; door.receiveShadow = true;
-
-  const handle = new THREE.Mesh( new THREE.BoxBufferGeometry( 35, 5, 15 ), new THREE.MeshPhongMaterial({ color: 0xffda21 }) );
-  handle.position.set(0, -240, 206);
-  handle.castShadow = true; handle.receiveShadow = true;
-
-  const sep = new THREE.Mesh( new THREE.BoxBufferGeometry( 5, 5, 120 ), new THREE.MeshPhongMaterial({ color: 0xc7c7c7 }) );
-  sep.rotation.x = Math.PI / 2;
-  sep.position.set(0, -240, 206);
-  sep.castShadow = true; sep.receiveShadow = true;
-
-  const rgb1 = new THREE.Mesh( new THREE.BoxBufferGeometry(450, 30, 450), new THREE.MeshPhongMaterial({ color: 0xff0000 }) );
-  rgb1.position.y = 450
-  rgb1.rotateOnAxis(new THREE.Vector3(0.5, 0, 0), Math.PI / 2)
-  rgb1.castShadow = true; main.receiveShadow = true;
-  rgb1.name = 'rgb1'
-
-  const rgb2 = new THREE.Mesh( new THREE.BoxBufferGeometry(450, 30, 450), new THREE.MeshPhongMaterial({ color: 0xff0000 }) );
-  rgb2.position.y = 450
-  rgb2.rotateOnAxis(new THREE.Vector3(0.5, 0, 0), -Math.PI / 2)
-  rgb2.castShadow = true; main.receiveShadow = true;
-  rgb2.name = 'rgb2'
-
-  // bulb1
-  const otherbulb1 = new THREE.Group();
-   
-  const bulb1 = new THREE.Mesh( new THREE.BoxBufferGeometry( 20, 20, 20 ), new THREE.MeshPhongMaterial({ color: 0xffda21 }) );
-  bulb1.position.set(-185, -230, 200);
-  bulb1.castShadow = true; bulb1.receiveShadow = true;
-
-  let otherbuildinglight1 = new THREE.PointLight(0xffffff, 1.5, 150);
-  otherbuildinglight1.position.set(-185, -230, 206);
-  otherbuildinglight1.target = new THREE.Vector3();
-  otherbuildinglight1.name = "otherbuildinglight1"
-
-  otherbulb1.add(bulb1, otherbuildinglight1);
-  
-  // bulb2
-  const otherbulb2 = new THREE.Group();
-
-  const bulb2 = new THREE.Mesh( new THREE.BoxBufferGeometry( 20, 20, 20 ), new THREE.MeshPhongMaterial({ color: 0xffda21 }) );
-  bulb2.position.set(185, -230, 200);
-  bulb2.castShadow = true; bulb2.receiveShadow = true;
-
-  let otherbuildinglight2 = new THREE.PointLight(0xffffff, 1.5, 150);
-  otherbuildinglight2.position.set(185, -230, 206);
-  otherbuildinglight2.target = new THREE.Vector3();
-  otherbuildinglight2.name = "otherbuildinglight2"
-
-  otherbulb2.add(bulb2, otherbuildinglight2);
-
-  // building
-  building.add( main, main2, main3, door, handle, sep, otherbulb1, otherbulb2, rgb1, rgb2);
-  
-  const back = createAnotherBuildingWindows();
-  back.rotation.y = Math.PI;
-
-  const right = createAnotherBuildingWindows();
-  right.rotation.set(0, Math.PI / 2, Math.PI / 2)
-  right.scale.set(1.2, 0.85, 1)
-  right.position.x += 50;
-  right.position.z -= 44;
-  
-  building.add( createAnotherBuildingWindows(), back, right, createPoster(), createAntena() );
-
-  building.position.set(posx+1000, 300, posz)
-  return building
-}
 
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////

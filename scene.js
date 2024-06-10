@@ -98,7 +98,7 @@ function load3DObjects(sceneGraph) {
     sceneGraph.add(createRoad(3200, 150, -200, 0));
     sceneGraph.add(createRoad(150, 1950, 150, -1025));
     sceneGraph.add(createRoad(150, 1950, 150, 1025));
-    sceneGraph.add(createBusStop())
+  
     sceneGraph.add(createCrossWalk());
 
     const othercross = createCrossWalk();
@@ -106,9 +106,7 @@ function load3DObjects(sceneGraph) {
     othercross.position.set(150,0,155);
     sceneGraph.add(othercross);
 
-    const bus = createBus();
-    sceneGraph.add(bus)
-    bus.name = "bus"
+    
 
     // ************************** //
     // Create vehicles
@@ -125,7 +123,7 @@ function load3DObjects(sceneGraph) {
     sceneGraph.add(redcar);
 
     sceneGraph.add(createClassicCar(1120, -800));
-    sceneGraph.add(createMuscleCar(680, -1000));
+    
 
     // ************************** //
     // Create trees
@@ -154,7 +152,7 @@ function load3DObjects(sceneGraph) {
 
     for (var z= -1850; z < -100; z+= 300 ){ sceneGraph.add(createBuilding(-100, z)); }
 
-    sceneGraph.add(createAnotherBuilding(-100, -1680))
+    
 
     sceneGraph.add(createParkingLot());
     
@@ -177,15 +175,6 @@ function load3DObjects(sceneGraph) {
         }
     }
 
-    // ************************** //
-    // Create lake and decoration
-    // ************************** //
-   
-    
-    
-    
-
-    
 
     // ************************** //
     // Create sun and moon
@@ -217,15 +206,7 @@ function load3DObjects(sceneGraph) {
 
 ////////////////////////////////
 
-const star_vertices = [];
 
-for ( let i = 0; i < 80000; i ++ ) {
-    const x = THREE.MathUtils.randFloatSpread( 10000 );
-    const y = THREE.MathUtils.randFloatSpread( 10000 );
-    const z = THREE.MathUtils.randFloatSpread( 5000 ); + 10000 
-    star_vertices.push( x, y, z );
-
-}
 
 let firstperson = false;
 let clicks = 0;
@@ -266,9 +247,7 @@ function computeFrame() {
     const sunpos = sun.getWorldPosition( worldPosition );
 
     // otherbuilding lights
-    const otherbuildinglight1 = sceneElements.sceneGraph.getObjectByName("otherbuildinglight1");
-    const otherbuildinglight2 = sceneElements.sceneGraph.getObjectByName("otherbuildinglight2");
-
+    
     
 
     // get sunlight
@@ -292,10 +271,6 @@ function computeFrame() {
         post_lights.push(p);
     }
 
-    
-
-    
-
     let building_lights = []
     // post lights
     for (var i= -1850; i < -100; i+= 300 ){
@@ -305,17 +280,9 @@ function computeFrame() {
     }
     
     var r = building_colors[Math.floor(Math.random()*building_colors.length)];
-
-    const rgb1 = sceneElements.sceneGraph.getObjectByName("rgb1");
-    createjs.Tween.get(rgb1.material.color).to(new THREE.Color(r)) 
-
-    const rgb2 = sceneElements.sceneGraph.getObjectByName("rgb2");
-    createjs.Tween.get(rgb2.material.color).to(new THREE.Color(r)) 
     
     // if its day
     if (sunpos.y > 0) {
-
-        
 
         createjs.Tween.get(sceneElements.sceneGraph.background).to(new THREE.Color(0x91c3ed), 1200)
         createjs.Tween.get(sceneElements.sceneGraph.fog).to(new THREE.Fog(0xffe680, 2500, 12000))
@@ -325,8 +292,7 @@ function computeFrame() {
         
 
         
-        otherbuildinglight1.intensity = 0;
-        otherbuildinglight2.intensity = 0;
+        
         sunlight.intensity = 1;
         fl1.intensity = 0;
         fl2.intensity = 0;
@@ -336,15 +302,9 @@ function computeFrame() {
 
         createjs.Tween.get(sceneElements.sceneGraph.background).to(new THREE.Color(0x090f14), 1200)
         createjs.Tween.get(sceneElements.sceneGraph.fog).to(new THREE.Fog(0x1e2733, 1000, 10000))
-
         for (var i in post_lights){ post_lights[i].intensity = 2.8; }
         for (var i in building_lights){ building_lights[i].intensity = 1; }
-        
-        
         sunlight.intensity = 0;
-        
-        otherbuildinglight1.intensity = 2;
-        otherbuildinglight2.intensity = 2;
         fl1.intensity = 1.6;
         fl2.intensity = 1.6;
         
@@ -361,15 +321,7 @@ function computeFrame() {
     if (redcar.position.x > -2350){ redcar.position.x -= 14; }
     if (redcar.position.x <= -2350){ redcar.position.set(750, redcar.position.y, redcar.position.z)}
 
-    const bus = sceneElements.sceneGraph.getObjectByName("bus");
-
-    if (bus.position.z > -2750){  
-        if (bus.position.z == 0)  {
-            // stop
-            setTimeout(function(){bus.position.z -=0.1 }, 5000); //wait 5 seconds
-        } else {  bus.position.z -= 10; }
-    }
-    if ( bus.position.z <= -2750){ bus.position.set(0, 0, 1000)}
+    
     
     const person = sceneElements.sceneGraph.getObjectByName("person");
     

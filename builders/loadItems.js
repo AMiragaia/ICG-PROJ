@@ -80,44 +80,6 @@ function createBench(x, z) {
 
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// MUSCLE CAR
-function createMuscleCar(posx, posz) {
-    const group = new THREE.Group();
-
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
-
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/musclecar/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(0.16,0.16,0.16)
-            gltf.scene.rotation.y = Math.PI/2
-            gltf.scene.position.set(posx, 6, posz)
-
-            gltf.scene.traverse(function (child) {
-
-                if (child instanceof THREE.Mesh) {
-                child.castShadow = true;
-                child.receiveShadow = true;
-                }
-            });
-
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Muscle car ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-        function ( error ) {
-            console.log( ' An error happened' +  error );
-        }
-    );
-    return group;
-}
 
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -204,88 +166,6 @@ function createRedCar(posx, posz) {
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // BUS STOP
-function createBusStop() {
-    const group = new THREE.Group();
-
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
-
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/busstop/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(50,50,50)
-            gltf.scene.rotation.y = Math.PI/2
-            gltf.scene.position.set(320, 0, 900)
-
-            gltf.scene.traverse(function (child) {
-
-                if (child instanceof THREE.Mesh) {
-                    child.material = new THREE.MeshPhongMaterial({color: 0xffffff, opacity: 0.5})
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Bus stop ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-            function ( error ) {
-        console.log( ' An error happened' +  error );
-        }
-    );
-    return group;
-}
-
-/*  NEW FOR PROJECT 2 */
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// BUS 
-function createBus() {
-    const group = new THREE.Group();
-
-    // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
-
-    // Load a glTF resource
-    loader.load(
-        // resource URL
-        'models/bus/scene.gltf',
-        // called when the resource is loaded
-        function ( gltf ) {
-            gltf.scene.scale.set(30,40,40)
-            gltf.scene.rotation.y = Math.PI
-            gltf.scene.position.set(190, 0, 900)
-
-            gltf.scene.traverse(function (child) {
-
-                if (child instanceof THREE.Mesh) {
-                    //child.material = new THREE.MeshPhongMaterial({color: 0xffffff, opacity: 0.5})
-                    child.castShadow = true;
-                    child.receiveShadow = true;
-                }
-            });
-
-            group.add( gltf.scene );
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            console.log( 'Bus ' +( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-            function ( error ) {
-        console.log( ' An error happened' +  error );
-        }
-    );
-    return group;
-}
-
-
 
 
 /*  NEW FOR PROJECT 2 */
