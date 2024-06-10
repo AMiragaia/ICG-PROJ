@@ -36,7 +36,7 @@ export function addObjects(scene, streetLights) {
     addTree(scene, 12, 2.5);
 
     // Adding buildings across the street
-    addBuilding(scene, -12.5, -12, 10, 10, 20, './assets/paredes.jpg', './assets/paredes.jpg');
+    addBuilding(scene, 15, -12, 10, 10, 20, './assets/paredes.jpg', './assets/paredes.jpg');
 
     // Adding street lights between the houses
     addStreetLight(scene, 9, -11, 5, Math.PI,streetLights);

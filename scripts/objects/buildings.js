@@ -15,14 +15,67 @@ export function addBuilding(scene, x, z, width, depth, height, texturePath, norm
         map: texture,
         normalMap: normalMap 
     });
-    
 
     const buildingGeometry = new THREE.BoxGeometry(width, height, depth);
     const building = new THREE.Mesh(buildingGeometry, material);
     building.position.set(x, height / 2, z);
     building.castShadow = true;
     building.receiveShadow = true;
-    scene.add(building);
+
+    // Add door
+    const doorGeometry = new THREE.BoxGeometry(2, 4, 0.1);
+    const doorMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+    const door = new THREE.Mesh(doorGeometry, doorMaterial);
+    door.position.set(x, 2, z + depth / 2 + 0.05);
+    door.castShadow = true;
+    door.receiveShadow = true;
+
+    // Add windows
+    const windowGeometry = new THREE.BoxGeometry(2, 2, 0.1);
+    const windowMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, opacity: 0.6, transparent: true });
+
+    const window1 = new THREE.Mesh(windowGeometry, windowMaterial);
+    window1.position.set(x - 3, 8, z + depth / 2 + 0.05);
+    window1.castShadow = true;
+    window1.receiveShadow = true;
+
+    const window2 = new THREE.Mesh(windowGeometry, windowMaterial);
+    window2.position.set(x + 3, 8, z + depth / 2 + 0.05);
+    window2.castShadow = true;
+    window2.receiveShadow = true;
+
+    const window3 = new THREE.Mesh(windowGeometry, windowMaterial);
+    window3.position.set(x + 3, 12, z + depth / 2 + 0.05);
+    window3.castShadow = true;
+    window3.receiveShadow = true;
+    
+    const window4 = new THREE.Mesh(windowGeometry, windowMaterial);
+    window4.position.set(x - 3, 12, z + depth / 2 + 0.05);
+    window4.castShadow = true;
+    window4.receiveShadow = true;
+    
+    const window5 = new THREE.Mesh(windowGeometry, windowMaterial);
+    window5.position.set(x + 3, 16, z + depth / 2 + 0.05);
+    window5.castShadow = true;
+    window5.receiveShadow = true;
+    
+    const window6 = new THREE.Mesh(windowGeometry, windowMaterial);
+    window6.position.set(x - 3, 16, z + depth / 2 + 0.05);
+    window6.castShadow = true;
+    window6.receiveShadow = true;
+
+    // Add everything to the group
+    const group = new THREE.Group();
+    group.add(building);
+    group.add(door);
+    group.add(window1);
+    group.add(window2);
+    group.add(window3);
+    group.add(window4);
+    group.add(window5);
+    group.add(window6);
+    group.rotateY(Math.PI / 2);
+    scene.add(group);
 }
 export function addStreetLight(scene, x, z, height = 5, rotationY = 0, streetLights) {
     const loader = new THREE.TextureLoader();
