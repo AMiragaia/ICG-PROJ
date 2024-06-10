@@ -1,7 +1,5 @@
 import * as THREE from 'three';
-import { createCamera } from './camera.js';
-import { createControls } from './controls.js';
-import { addLights } from './lights.js';
+import { PointerLockControls } from 'PointerLockControls';
 import { addObjects } from './objects/index.js';
 
 let camera, scene, renderer, controls;
@@ -10,6 +8,40 @@ let streetLights = [];
 let dayMode = true;
 
 let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+function createCamera() {
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+    camera.position.set(0, 1.6, 5); // Adjust if necessary to start the camera at street level
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    return camera;
+}
+
+export function createControls(camera, domElement) {
+    const controls = new PointerLockControls(camera, domElement);
+
+    document.body.addEventListener('click', function () {
+        controls.lock();
+    });
+
+    controls.addEventListener('lock', () => {
+        document.getElementById('blocker').style.display = 'none';
+        document.getElementById('instructions').style.display = 'none';
+    });
+
+    controls.addEventListener('unlock', () => {
+        document.getElementById('blocker').style.display = 'block';
+        document.getElementById('instructions').style.display = '';
+    });
+
+    return controls;
+}
+export function addLights(scene) {
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLight.position.set(10, 20, 10);
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
+}
 
 function init() {
     scene = new THREE.Scene();

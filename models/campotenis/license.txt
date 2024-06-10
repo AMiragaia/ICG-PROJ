@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cancha Tenis
+* source:	https://sketchfab.com/3d-models/cancha-tenis-2d77d5254e764be1a6956eab3122ce92
+* author:	kento_natural (https://sketchfab.com/kento_natural)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cancha Tenis" (https://sketchfab.com/3d-models/cancha-tenis-2d77d5254e764be1a6956eab3122ce92) by kento_natural (https://sketchfab.com/kento_natural) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

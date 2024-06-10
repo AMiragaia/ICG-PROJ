@@ -1,0 +1,11 @@
+Model Information:
+* title:	The Incredibles Poster
+* source:	https://sketchfab.com/3d-models/the-incredibles-poster-6b2cfd57f6554d7bb35edf0968298210
+* author:	Ian Dowson (https://sketchfab.com/eonie316)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "The Incredibles Poster" (https://sketchfab.com/3d-models/the-incredibles-poster-6b2cfd57f6554d7bb35edf0968298210) by Ian Dowson (https://sketchfab.com/eonie316) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
