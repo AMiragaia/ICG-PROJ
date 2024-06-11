@@ -3,11 +3,11 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'GLTFLoader';
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // TREE
-function createTree(posx) {
+export function createTree(posx,poz) {
     const group = new THREE.Group();
   
       // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
   
     // Load a glTF resource
     loader.load(
@@ -15,8 +15,8 @@ function createTree(posx) {
       'models/tree/scene.gltf',
       // called when the resource is loaded
       function ( gltf ) {
-        gltf.scene.scale.set(80,80,80)
-        gltf.scene.position.set(posx, 0, -1000+getRandomNumberBetween(-50,50))
+        gltf.scene.scale.set(1,1,1)
+        gltf.scene.position.set(posx, 0, poz)
 
         gltf.scene.traverse(function (child) {
   
@@ -39,16 +39,68 @@ function createTree(posx) {
     );
     return group;
 }  
-  
+export function createCampoTenis(){
+    const group = new THREE.Group();
+    const loader = new GLTFLoader();
+    loader.load(
+        'models/campotenis/scene.gltf',
+        function ( gltf ) {
+            gltf.scene.scale.set(0.015,0.015,0.015)
+            gltf.scene.position.set(-40, 0.2, 40)
+            gltf.scene.rotation.y = Math.PI/2
+            gltf.scene.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+            group.add( gltf.scene );
+        },
+        function ( xhr ) {
+            console.log( 'Campo de tenis ' + ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        function ( error ) {
+            console.log( ' An error happened' +  error );
+        }
+    );
+    return group;
+
+}
+export function createcinema(){
+    const group = new THREE.Group();
+    const loader = new GLTFLoader();
+    loader.load(
+        'models/cinema/scene.gltf',
+        function ( gltf ) {
+            gltf.scene.scale.set(0.025,0.025,0.025)
+            gltf.scene.position.set(-25, 0.2, -65)
+            gltf.scene.rotation.y = Math.PI/2
+            gltf.scene.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                }
+            });
+            group.add( gltf.scene );
+        },
+        function ( xhr ) {
+            console.log( 'Cinema ' + ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },
+        function ( error ) {
+            console.log( ' An error happened' +  error );
+        }
+    );
+    return group;
+}
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // BENCH
-function createBench(x, z) {
+export function createBench(x, z) {
   
     const group = new THREE.Group();
 
     // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
 
 
     // Load a glTF resource
@@ -57,8 +109,9 @@ function createBench(x, z) {
         'models/bench/scene.gltf',
         // called when the resource is loaded
         function ( gltf ) {
-        gltf.scene.scale.set(110,110,110)
+        gltf.scene.scale.set(1,1,1)
         gltf.scene.position.set(x, 0, z)
+        gltf.scene.rotation.y = Math.PI/2
 
         gltf.scene.traverse(function (child) {
 
@@ -84,11 +137,11 @@ function createBench(x, z) {
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // MUSCLE CAR
-function createMuscleCar(posx, posz) {
+export function createMuscleCar(posx, posz) {
     const group = new THREE.Group();
 
     // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
 
     // Load a glTF resource
     loader.load(
@@ -96,9 +149,9 @@ function createMuscleCar(posx, posz) {
         'models/musclecar/scene.gltf',
         // called when the resource is loaded
         function ( gltf ) {
-            gltf.scene.scale.set(0.16,0.16,0.16)
+            gltf.scene.scale.set(0.007,0.007,0.007)
             gltf.scene.rotation.y = Math.PI/2
-            gltf.scene.position.set(posx, 6, posz)
+            gltf.scene.position.set(posx, 0, posz)
 
             gltf.scene.traverse(function (child) {
 
@@ -125,11 +178,11 @@ function createMuscleCar(posx, posz) {
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // CLASSIC CAR
-function createClassicCar(posx, posz) {
+export function createClassicCar(posx, posz) {
     const group = new THREE.Group();
 
     // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
 
     // Load a glTF resource
     loader.load(
@@ -137,9 +190,9 @@ function createClassicCar(posx, posz) {
         'models/classiccar/scene.gltf',
         // called when the resource is loaded
         function ( gltf ) {
-            gltf.scene.scale.set(11,11,11)
+            gltf.scene.scale.set(0.5,0.5,0.5)
             gltf.scene.rotation.y = -Math.PI/2
-            gltf.scene.position.set(posx, 22, posz)
+            gltf.scene.position.set(posx, 0.65, posz)
 
             gltf.scene.traverse(function (child) {
 
@@ -282,11 +335,11 @@ export function createBusStop() {
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // BUS 
-function createBus() {
+export function createBus() {
     const group = new THREE.Group();
 
     // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
 
     // Load a glTF resource
     loader.load(
@@ -294,9 +347,9 @@ function createBus() {
         'models/bus/scene.gltf',
         // called when the resource is loaded
         function ( gltf ) {
-            gltf.scene.scale.set(30,40,40)
+            gltf.scene.scale.set(1,1.3,1.3)
             gltf.scene.rotation.y = Math.PI
-            gltf.scene.position.set(190, 0, 900)
+            gltf.scene.position.set(2, 0 , -30)
 
             gltf.scene.traverse(function (child) {
 
@@ -583,11 +636,11 @@ function createAntena() {
 /*  NEW FOR PROJECT 2 */
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // shop
-function createShop1() {
+export function createShop1() {
     const group = new THREE.Group();
 
     // Instantiate a loader
-    const loader = new THREE.GLTFLoader();
+    const loader = new GLTFLoader();
 
     // Load a glTF resource
     loader.load(
@@ -595,9 +648,9 @@ function createShop1() {
         'models/shop1/scene.gltf',
         // called when the resource is loaded
         function ( gltf ) {
-            gltf.scene.scale.set(105,105,105)
-            gltf.scene.rotation.y = Math.PI
-            gltf.scene.position.set(520, 0, 450)
+            gltf.scene.scale.set(2,2,2)
+            gltf.scene.rotation.y = 0
+            gltf.scene.position.set(-15, 0, -45)
 
             gltf.scene.traverse(function (child) {
             

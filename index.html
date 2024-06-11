@@ -16,15 +16,67 @@
         }
     </script>
     <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+        #controls h3 {
+            margin: 0;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+        #controls p {
+            margin: 0;
+            font-size: 14px;
+        }
+        #blocker {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+        }
+        #instructions {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        #modeButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+        }
+    </style>
 </head>
 <body>
-    <div id="blocker" style="position: absolute; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); display: none;">
-        <div id="instructions" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+    <div id="blocker">
+        <div id="instructions">
             Click to play
         </div>
     </div>
     <div id="WebGL-output"></div> <!-- Renderer output will be here -->
-    <button id="modeButton" style="position: absolute; top: 10px; right: 10px; z-index: 100;">Night Mode</button>
+    <button id="modeButton">Night Mode</button>
+    <div id="controls">
+        <h3>Controls</h3>
+        <p>W, A, S, D - Move</p>
+        <p>Mouse - Look around</p>
+        <p>Click - Interact</p>
+    </div>
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

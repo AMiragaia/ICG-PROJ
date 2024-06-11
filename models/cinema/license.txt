@@ -1,0 +1,11 @@
+Model Information:
+* title:	Small Cinema
+* source:	https://sketchfab.com/3d-models/small-cinema-29f2043486564313a0013efa056ba2f3
+* author:	berti_120 (https://sketchfab.com/berti_120)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Small Cinema" (https://sketchfab.com/3d-models/small-cinema-29f2043486564313a0013efa056ba2f3) by berti_120 (https://sketchfab.com/berti_120) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

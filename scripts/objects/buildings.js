@@ -1,5 +1,39 @@
 import * as THREE from 'three';
+export function addParkingLot(scene, x, z, width, depth, rotationZ = 0) {
+    const parkingLotGeometry = new THREE.PlaneGeometry(width, depth);
+    const parkingLotMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+    const parkingLot = new THREE.Mesh(parkingLotGeometry, parkingLotMaterial);
+    parkingLot.rotation.x = -Math.PI / 2; // Rotate the plane to be horizontal
+    parkingLot.rotation.z = rotationZ; // Apply the rotation around the Z-axis
+    parkingLot.position.set(x, 0.02, z); // Slightly raise the parking lot to avoid z-fighting
+    parkingLot.receiveShadow = true;
+    scene.add(parkingLot);
 
+    // Add parking lines
+    const lineMaterial = new THREE.MeshStandardMaterial({ color: 0xFFFFFF });
+    const lineWidth = 0.1;
+    const spaceWidth = (width - lineWidth * 5) / 4; // Calculate the width of each parking space
+    for (let i = 0; i < 5; i++) {
+        const lineGeometry = new THREE.PlaneGeometry(lineWidth, depth);
+        const line = new THREE.Mesh(lineGeometry, lineMaterial);
+        line.rotation.x = -Math.PI / 2; // Rotate the plane to be horizontal
+        line.rotation.y = 0; // Rotate the plane to be vertical
+        line.rotation.z = rotationZ; // Apply the same rotation
+        line.position.set(x - width / 2 + lineWidth / 2 + i * (spaceWidth + lineWidth), 0.03, z); // Offset a bit on the y-axis to avoid z-fighting
+        scene.add(line);
+    }
+
+    // Add entrance
+    const entranceWidth = width / 4;
+    const entranceGeometry = new THREE.PlaneGeometry(entranceWidth, depth / 4);
+    const entranceMaterial = new THREE.MeshStandardMaterial({ color: 0x444444 });
+    const entrance = new THREE.Mesh(entranceGeometry, entranceMaterial);
+    entrance.rotation.x = -Math.PI / 2; // Rotate the plane to be horizontal
+    entrance.rotation.z = rotationZ; // Apply the same rotation
+    entrance.position.set(x, 0.03, z - depth / 2 - depth / 8); // Adjust the position to face the road
+    entrance.receiveShadow = true;
+    scene.add(entrance);
+}
 // You might want to pass the scene as an argument to these functions if they are not in the same module as your main scene setup.
 export function addBuilding(scene, x, z, width, depth, height, texturePath, normalMapPath) {
     const textureLoader = new THREE.TextureLoader();
@@ -132,6 +166,20 @@ export function addStreetLight(scene, x, z, height = 5, rotationY = 0, streetLig
 
     streetLights.push(light); // Adiciona a luz da rua à lista
 }
+
+
+
+// Function to "erase" part of the crosswalk
+export function eraseCrosswalk(scene, x, z, width, depth) {
+    const eraseGeometry = new THREE.PlaneGeometry(width, depth);
+    const eraseMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 }); // Match the road color
+    const erasePlane = new THREE.Mesh(eraseGeometry, eraseMaterial);
+    erasePlane.rotation.x = -Math.PI / 2; // Rotate the plane to be horizontal
+    erasePlane.position.set(x, 0.01, z); // Slightly raise to avoid z-fighting
+    erasePlane.receiveShadow = true;
+    scene.add(erasePlane);
+}
+
 export function createHouse(scene, x, z, rotationY = 0) {
     const loader = new THREE.TextureLoader();
     const houseGroup = new THREE.Group();
@@ -253,8 +301,8 @@ export function createCottageStyleHouse(scene, x, z, rotationY = 0) {
     // Base geometry
     const baseGeometry = new THREE.BoxGeometry(8, 6, 8);
     const baseMaterial = new THREE.MeshStandardMaterial({
-        map: loader.load('assets/metal.jpg'), // Ensure path is correct
-        normalMap: loader.load('assets/metal.jpg') // Assuming the normal map is different
+        map: loader.load('assets/paredes.jpg'), // Ensure path is correct
+        normalMap: loader.load('assets/paredes.jpg') // Assuming the normal map is different
     });
     const base = new THREE.Mesh(baseGeometry, baseMaterial);
     base.position.set(0, 3, 0);
@@ -268,10 +316,18 @@ export function createCottageStyleHouse(scene, x, z, rotationY = 0) {
     roof.rotation.y = Math.PI / 4;
     houseGroup.add(roof);
 
-    // Chimney geometry
     const chimneyGeometry = new THREE.BoxGeometry(1, 5, 1);
-    const chimneyMaterial = new THREE.MeshStandardMaterial({ color: 0x654321 });
+
+    // Load brick texture
+    const textureLoader = new THREE.TextureLoader();
+    const brickTexture = textureLoader.load('./assets/bricks.jpg'); // Adjust the path to your texture image
+
+    // Create material with brick texture
+    const chimneyMaterial = new THREE.MeshStandardMaterial({ map: brickTexture });
+
+    // Create chimney mesh with the textured material
     const chimney = new THREE.Mesh(chimneyGeometry, chimneyMaterial);
+
     chimney.position.set(2, 10, -1);
     houseGroup.add(chimney);
 
@@ -310,8 +366,8 @@ export function createAFrameHouse(scene, x, z, rotationY = 0) {
     // Base geometry
     const baseGeometry = new THREE.BoxGeometry(12, 6, 12);
     const baseMaterial = new THREE.MeshStandardMaterial({
-        map: loader.load('assets/metal.jpg'), // Ensure path is correct
-        normalMap: loader.load('assets/metal.jpg') // Assuming the normal map is different
+        map: loader.load('assets/paredes.jpg'), // Ensure path is correct
+        normalMap: loader.load('assets/paredes.jpg') // Assuming the normal map is different
     });
     const base = new THREE.Mesh(baseGeometry, baseMaterial);
     base.position.set(0, 3, 0);
@@ -356,3 +412,7 @@ export function createAFrameHouse(scene, x, z, rotationY = 0) {
     houseGroup.rotation.y = rotationY;
     scene.add(houseGroup);
 }
+
+
+
+

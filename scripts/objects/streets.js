@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 export function addGround(scene) {
-    const groundGeometry = new THREE.PlaneGeometry(50, 150);
+    const groundGeometry = new THREE.PlaneGeometry(100, 150);
     const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x808080 });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
     ground.rotation.x = -Math.PI / 2;
@@ -66,7 +66,7 @@ export function addTree(scene, x, z) {
 }
 
 // Função para criar uma lixeira
-export function createTrashCan(scene, x, z, rotationY = 0) {
+export function createTrashCan(x, z, rotationY = 0) {
     const trashCanGroup = new THREE.Group();
 
     // Corpo da lixeira
@@ -92,7 +92,8 @@ export function createTrashCan(scene, x, z, rotationY = 0) {
 
     trashCanGroup.position.set(x, 0, z);
     trashCanGroup.rotation.y = rotationY;
-    scene.add(trashCanGroup);
+
+    return trashCanGroup;
 }
 
 function createWheels() {
